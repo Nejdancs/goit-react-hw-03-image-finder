@@ -37,13 +37,14 @@ export class App extends Component {
 
   onSubmit = async evt => {
     evt.preventDefault();
-    const value = evt.target.elements.search.value.trim();
+    const input = evt.target.elements.search;
+    const value = input.value.trim();
+    const page = 1;
+
     if (value === '') {
       Notify.warning("You didn't enter anything!");
       return;
     }
-
-    const page = 1;
 
     this.setState({ loading: true });
     const res = await getImages(value, page).finally(() =>
@@ -74,9 +75,9 @@ export class App extends Component {
   };
 
   scroll = () => {
-    const test = document.documentElement.clientHeight;
+    const { clientHeight } = document.documentElement;
     window.scrollBy({
-      top: test - 180,
+      top: clientHeight - 180,
       behavior: 'smooth',
     });
   };

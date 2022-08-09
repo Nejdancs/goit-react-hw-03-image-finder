@@ -29,6 +29,7 @@ class Modal extends Component {
 
   render() {
     const { image, tags } = this.props;
+
     return createPortal(
       <Overlay onClick={this.clickOnBackdrop}>
         <ModalBody>
