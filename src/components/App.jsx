@@ -17,12 +17,11 @@ export class App extends Component {
 
     if (prevState.page !== page && page !== 1) {
       this.setState({ loading: true });
-      const res = await getImages(query, page).finally(() =>
-        this.setState({ loading: false })
-      );
+      const res = await getImages(query, page);
 
       this.setState(({ images }) => ({
         images: [...images, ...res.hits],
+        loading: false,
       }));
 
       setTimeout(() => this.scroll(), 1);
@@ -47,9 +46,8 @@ export class App extends Component {
     }
 
     this.setState({ loading: true });
-    const res = await getImages(value, page).finally(() =>
-      this.setState({ loading: false })
-    );
+    const res = await getImages(value, page);
+    this.setState({ loading: false });
 
     if (res.hits.length === 0) {
       Notify.failure(
